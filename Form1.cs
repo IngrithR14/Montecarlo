@@ -1,55 +1,25 @@
 ﻿using System;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Montecarlo
 {
     public partial class Form1: Form
     {
-        DataTable dataSet = new DataTable();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void btnProcesar_Click(object sender, EventArgs e)
-        {
-            int seed = Convert.ToInt32(txtSeed.Text);
-            int a = Convert.ToInt32(txtA.Text);
-            int b = Convert.ToInt32(txtB.Text);
-            int m = Convert.ToInt32(txtM.Text);
-            int iterations = Convert.ToInt32(txtIteration.Text);
-            //xn=(a*(xn-1)+b) mod m
-            //un=xn/m
-            float xn, un;
-            xn = (a * seed + b) % m;
-            un = xn / m;
-            lblR2.Text = xn.ToString();
-            lblR1.Text = un.ToString();
-            float[] arrXn = new float[iterations];
-            arrXn[0] = xn;
-            dataSet.Rows.Add(0, seed, arrXn[0] / m);
-            chart1.Series[0].Points.Clear();
-            for (int i = 1; i < iterations; i++)
-            {
-                arrXn[i]= (a * arrXn[i-1] + b) % m;
-                dataSet.Rows.Add(i, arrXn[i], arrXn[i]/m);
-                chart1.Series[0].Points.AddXY(i, arrXn[i]/m);
-            }
-           
-            dgvResults.DataSource = dataSet;
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            dataSet.Columns.Add("Iteracion",typeof(int));
-            dataSet.Columns.Add("Xn", typeof(float));
-            dataSet.Columns.Add("Un", typeof(float));
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /*private void button2_Click(object sender, EventArgs e)
         {
             chart2.Series[0].Points.Clear();
             Stopwatch watch = new Stopwatch();
@@ -68,8 +38,57 @@ namespace Montecarlo
             }
             watch.Stop();
             lblTiempo.Text = watch.Elapsed.TotalSeconds.ToString();
+        }*/
+
+        private void btnProcesarCongruencial_Click(object sender, EventArgs e)
+        {
+            int seed = Convert.ToInt32(txtSeed.Text);
+            int a = Convert.ToInt32(txtA.Text);
+            int b = Convert.ToInt32(txtB.Text);
+            int m = Convert.ToInt32(txtM.Text);
+            float li = 0.5f;
+            int ls = 3;
+            int iteraciones = 0;
+            if (rb10.Checked == true)
+                iteraciones = 20;
+            else if (rb100.Checked == true)
+                iteraciones = 200;
+            else if (rb1000.Checked == true)
+                iteraciones = 2000;
+            else if (rb10000.Checked == true)
+                iteraciones = 20000;
+            
+            float xn, un,du;
+            xn = seed;
+            un = xn / m;
+            float[] arrXn = new float[iteraciones];
+            arrXn[0] = xn;
+            dgvData.Rows.Add(1,xn, un , (li + ((ls - li) * un)));
+            chFrecuencia.Series[0].Points.Clear();
+            for (int i = 1; i < iteraciones; i++)
+            {
+                arrXn[i] = (a * arrXn[i - 1] + b) % m;
+                xn = arrXn[i];
+                un = arrXn[i] / m;
+                du = (li+((ls-li)*un));
+                dgvData.Rows.Add(i + 1,xn,un,du);
+                chFrecuencia.Series[0].Points.AddXY(i, un);
+            }
         }
 
-        
+        private void btnPgGrafica_Click(object sender, EventArgs e)
+        {
+            tabControlCongruencial.SelectedTab = pgGraficasCongruencial;
+        }
+
+        private void btnPgMontecarlo_Click(object sender, EventArgs e)
+        {
+            tabControlMontecarlo.SelectedTab = pgMontecarlo;
+        }
+
+        private void btnPgGraficaM_Click(object sender, EventArgs e)
+        {
+            tabControlMontecarlo1.SelectedTab = pgGraficaM;
+        }
     }
 }
