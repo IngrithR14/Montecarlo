@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
@@ -42,6 +43,28 @@ namespace Montecarlo
 
         private void btnProcesarCongruencial_Click(object sender, EventArgs e)
         {
+
+            // Verificar si los campos de texto están vacíos
+            if (string.IsNullOrWhiteSpace(txtSeed.Text) ||
+                string.IsNullOrWhiteSpace(txtA.Text) ||
+                string.IsNullOrWhiteSpace(txtB.Text) ||
+                string.IsNullOrWhiteSpace(txtM.Text))
+            {
+                MessageBox.Show("Por favor, complete todos los campos antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Verificar si se ha seleccionado una opción de radio
+            if (!rb10.Checked && !rb100.Checked && !rb1000.Checked && !rb10000.Checked)
+            {
+                MessageBox.Show("Por favor, seleccione una cantidad de coordenadas aleatorias.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            //Holi esto limpia datos de la tabla antes de ingresar nuevos
+            dgvData.Rows.Clear();
+
+
             int seed = Convert.ToInt32(txtSeed.Text);
             int a = Convert.ToInt32(txtA.Text);
             int b = Convert.ToInt32(txtB.Text);
@@ -49,32 +72,58 @@ namespace Montecarlo
             float li = 0.5f;
             int ls = 3;
             int iteraciones = 0;
-            if (rb10.Checked == true)
-                iteraciones = 20;
-            else if (rb100.Checked == true)
-                iteraciones = 200;
-            else if (rb1000.Checked == true)
-                iteraciones = 2000;
-            else if (rb10000.Checked == true)
-                iteraciones = 20000;
-            
-            float xn, un,du;
+
+            if (rb10.Checked) iteraciones = 20;
+            else if (rb100.Checked) iteraciones = 200;
+            else if (rb1000.Checked) iteraciones = 2000;
+            else if (rb10000.Checked) iteraciones = 20000;
+
+            float xn, un, du;
             xn = seed;
             un = xn / m;
             float[] arrXn = new float[iteraciones];
             arrXn[0] = xn;
-            dgvData.Rows.Add(1,xn, un , (li + ((ls - li) * un)));
+            dgvData.Rows.Add(1, xn, un, (li + ((ls - li) * un)));
             chFrecuencia.Series[0].Points.Clear();
+
+            // Histograma
+            chRangos.Series.Clear();
+            int numBins = (int)Math.Ceiling(1 + Math.Log(iteraciones, 2));
+            Dictionary<double, int> histogramBins = new Dictionary<double, int>();
+
             for (int i = 1; i < iteraciones; i++)
             {
                 arrXn[i] = (a * arrXn[i - 1] + b) % m;
                 xn = arrXn[i];
                 un = arrXn[i] / m;
-                du = (li+((ls-li)*un));
-                dgvData.Rows.Add(i + 1,xn,un,du);
+                du = (li + ((ls - li) * un));
+
+                dgvData.Rows.Add(i + 1, xn, un, du);
                 chFrecuencia.Series[0].Points.AddXY(i, un);
+
+                // Cálculo de intervalos para histograma manteniendo decimales
+                double binWidth = 1.0 / numBins;
+                double binValue = Math.Floor(un / binWidth) * binWidth;
+
+                if (!histogramBins.ContainsKey(binValue))
+                    histogramBins[binValue] = 0;
+                histogramBins[binValue]++;
             }
+
+            // Crear y agregar la serie al histograma
+            Series serieHistograma = new Series("Histograma");
+            serieHistograma.ChartType = SeriesChartType.Column;
+            serieHistograma.Color = System.Drawing.Color.Blue;
+
+            foreach (var bin in histogramBins)
+            {
+                serieHistograma.Points.AddXY(bin.Key, bin.Value);
+            }
+
+            chRangos.Series.Add(serieHistograma);
+            chRangos.ChartAreas[0].AxisX.LabelStyle.Angle = -45;
         }
+
 
         private void btnPgGrafica_Click(object sender, EventArgs e)
         {
@@ -89,6 +138,41 @@ namespace Montecarlo
         private void btnPgGraficaM_Click(object sender, EventArgs e)
         {
             tabControlMontecarlo1.SelectedTab = pgGraficaM;
+        }
+
+
+        //Bloquear en los text box que solo se ingresen numeros positivos
+        //se bloquearon numeros negativos y letras
+        private void txtA_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private void txtM_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private void txtSeed_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; 
+            }
         }
     }
 }

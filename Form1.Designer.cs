@@ -46,6 +46,10 @@
             this.btnPgGrafica = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvData = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rb10000 = new System.Windows.Forms.RadioButton();
             this.rb1000 = new System.Windows.Forms.RadioButton();
@@ -74,8 +78,16 @@
             this.label14 = new System.Windows.Forms.Label();
             this.btnPgGraficaM = new System.Windows.Forms.Button();
             this.dgvCoordenadas = new System.Windows.Forms.DataGridView();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvDataM = new System.Windows.Forms.DataGridView();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtLS = new System.Windows.Forms.TextBox();
+            this.txtLI = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtPT = new System.Windows.Forms.TextBox();
             this.txtER = new System.Windows.Forms.TextBox();
@@ -93,18 +105,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.pgGraficaM = new System.Windows.Forms.TabPage();
             this.chMontecarlo = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtLI = new System.Windows.Forms.TextBox();
-            this.txtLS = new System.Windows.Forms.TextBox();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlMontecarlo.SuspendLayout();
             this.pgCongruencial.SuspendLayout();
             this.tabControlCongruencial.SuspendLayout();
@@ -131,7 +131,7 @@
             this.tabControlMontecarlo.Location = new System.Drawing.Point(12, 12);
             this.tabControlMontecarlo.Name = "tabControlMontecarlo";
             this.tabControlMontecarlo.SelectedIndex = 0;
-            this.tabControlMontecarlo.Size = new System.Drawing.Size(1197, 593);
+            this.tabControlMontecarlo.Size = new System.Drawing.Size(1528, 899);
             this.tabControlMontecarlo.TabIndex = 0;
             // 
             // pgCongruencial
@@ -140,7 +140,7 @@
             this.pgCongruencial.Location = new System.Drawing.Point(4, 29);
             this.pgCongruencial.Name = "pgCongruencial";
             this.pgCongruencial.Padding = new System.Windows.Forms.Padding(3);
-            this.pgCongruencial.Size = new System.Drawing.Size(1189, 560);
+            this.pgCongruencial.Size = new System.Drawing.Size(1520, 866);
             this.pgCongruencial.TabIndex = 2;
             this.pgCongruencial.Text = "Congruencial";
             this.pgCongruencial.UseVisualStyleBackColor = true;
@@ -149,10 +149,10 @@
             // 
             this.tabControlCongruencial.Controls.Add(this.pgDatos);
             this.tabControlCongruencial.Controls.Add(this.pgGraficasCongruencial);
-            this.tabControlCongruencial.Location = new System.Drawing.Point(6, 6);
+            this.tabControlCongruencial.Location = new System.Drawing.Point(6, 21);
             this.tabControlCongruencial.Name = "tabControlCongruencial";
             this.tabControlCongruencial.SelectedIndex = 0;
-            this.tabControlCongruencial.Size = new System.Drawing.Size(1168, 540);
+            this.tabControlCongruencial.Size = new System.Drawing.Size(1496, 815);
             this.tabControlCongruencial.TabIndex = 0;
             // 
             // pgDatos
@@ -165,7 +165,7 @@
             this.pgDatos.Location = new System.Drawing.Point(4, 29);
             this.pgDatos.Name = "pgDatos";
             this.pgDatos.Padding = new System.Windows.Forms.Padding(3);
-            this.pgDatos.Size = new System.Drawing.Size(1160, 507);
+            this.pgDatos.Size = new System.Drawing.Size(1488, 782);
             this.pgDatos.TabIndex = 0;
             this.pgDatos.Text = "Datos";
             this.pgDatos.UseVisualStyleBackColor = true;
@@ -216,6 +216,34 @@
             this.dgvData.RowTemplate.Height = 28;
             this.dgvData.Size = new System.Drawing.Size(514, 416);
             this.dgvData.TabIndex = 1;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Iteración";
+            this.Column1.MinimumWidth = 8;
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 70;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "X(n)";
+            this.Column2.MinimumWidth = 8;
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 60;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "U(n)";
+            this.Column3.MinimumWidth = 8;
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 60;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Distribución Uniforme";
+            this.Column4.MinimumWidth = 8;
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 90;
             // 
             // groupBox1
             // 
@@ -311,6 +339,7 @@
             this.txtSeed.Size = new System.Drawing.Size(152, 26);
             this.txtSeed.TabIndex = 7;
             this.txtSeed.Text = "7";
+            this.txtSeed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSeed_KeyPress);
             // 
             // txtM
             // 
@@ -319,6 +348,7 @@
             this.txtM.Size = new System.Drawing.Size(152, 26);
             this.txtM.TabIndex = 6;
             this.txtM.Text = "16";
+            this.txtM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtM_KeyPress);
             // 
             // lblX0
             // 
@@ -345,6 +375,7 @@
             this.txtB.Size = new System.Drawing.Size(152, 26);
             this.txtB.TabIndex = 3;
             this.txtB.Text = "3";
+            this.txtB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtB_KeyPress);
             // 
             // lblB
             // 
@@ -362,6 +393,7 @@
             this.txtA.Size = new System.Drawing.Size(152, 26);
             this.txtA.TabIndex = 1;
             this.txtA.Text = "5";
+            this.txtA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtA_KeyPress);
             // 
             // lblA
             // 
@@ -382,7 +414,7 @@
             this.pgGraficasCongruencial.Location = new System.Drawing.Point(4, 29);
             this.pgGraficasCongruencial.Name = "pgGraficasCongruencial";
             this.pgGraficasCongruencial.Padding = new System.Windows.Forms.Padding(3);
-            this.pgGraficasCongruencial.Size = new System.Drawing.Size(1160, 507);
+            this.pgGraficasCongruencial.Size = new System.Drawing.Size(1488, 782);
             this.pgGraficasCongruencial.TabIndex = 1;
             this.pgGraficasCongruencial.Text = "Graficas";
             this.pgGraficasCongruencial.UseVisualStyleBackColor = true;
@@ -423,7 +455,7 @@
             this.chFrecuencia.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chFrecuencia.Legends.Add(legend1);
-            this.chFrecuencia.Location = new System.Drawing.Point(650, 89);
+            this.chFrecuencia.Location = new System.Drawing.Point(668, 116);
             this.chFrecuencia.Name = "chFrecuencia";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -433,7 +465,7 @@
             series1.MarkerSize = 8;
             series1.Name = "Series1";
             this.chFrecuencia.Series.Add(series1);
-            this.chFrecuencia.Size = new System.Drawing.Size(445, 300);
+            this.chFrecuencia.Size = new System.Drawing.Size(661, 254);
             this.chFrecuencia.TabIndex = 1;
             this.chFrecuencia.Text = "chart4";
             // 
@@ -443,14 +475,14 @@
             this.chRangos.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chRangos.Legends.Add(legend2);
-            this.chRangos.Location = new System.Drawing.Point(99, 89);
+            this.chRangos.Location = new System.Drawing.Point(6, 89);
             this.chRangos.Name = "chRangos";
             series2.ChartArea = "ChartArea1";
             series2.IsVisibleInLegend = false;
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.chRangos.Series.Add(series2);
-            this.chRangos.Size = new System.Drawing.Size(439, 300);
+            this.chRangos.Size = new System.Drawing.Size(656, 341);
             this.chRangos.TabIndex = 0;
             this.chRangos.Text = "chart3";
             // 
@@ -459,7 +491,7 @@
             this.pgMontecarlo.Controls.Add(this.tabControlMontecarlo1);
             this.pgMontecarlo.Location = new System.Drawing.Point(4, 29);
             this.pgMontecarlo.Name = "pgMontecarlo";
-            this.pgMontecarlo.Size = new System.Drawing.Size(1189, 560);
+            this.pgMontecarlo.Size = new System.Drawing.Size(1520, 866);
             this.pgMontecarlo.TabIndex = 3;
             this.pgMontecarlo.Text = "Montecarlo";
             this.pgMontecarlo.UseVisualStyleBackColor = true;
@@ -535,6 +567,27 @@
             this.dgvCoordenadas.Size = new System.Drawing.Size(333, 449);
             this.dgvCoordenadas.TabIndex = 24;
             // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "#";
+            this.Column7.MinimumWidth = 8;
+            this.Column7.Name = "Column7";
+            this.Column7.Width = 50;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "X";
+            this.Column8.MinimumWidth = 8;
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 60;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Y";
+            this.Column9.MinimumWidth = 8;
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 60;
+            // 
             // dgvDataM
             // 
             this.dgvDataM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -547,6 +600,21 @@
             this.dgvDataM.RowTemplate.Height = 28;
             this.dgvDataM.Size = new System.Drawing.Size(350, 449);
             this.dgvDataM.TabIndex = 23;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column5.HeaderText = "X";
+            this.Column5.MinimumWidth = 8;
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 85;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Y";
+            this.Column6.MinimumWidth = 8;
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 85;
             // 
             // groupBox3
             // 
@@ -575,6 +643,35 @@
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Resultados";
+            // 
+            // txtLS
+            // 
+            this.txtLS.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtLS.Location = new System.Drawing.Point(146, 295);
+            this.txtLS.Name = "txtLS";
+            this.txtLS.ReadOnly = true;
+            this.txtLS.Size = new System.Drawing.Size(127, 26);
+            this.txtLS.TabIndex = 26;
+            this.txtLS.Text = "3";
+            // 
+            // txtLI
+            // 
+            this.txtLI.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtLI.Location = new System.Drawing.Point(146, 254);
+            this.txtLI.Name = "txtLI";
+            this.txtLI.ReadOnly = true;
+            this.txtLI.Size = new System.Drawing.Size(127, 26);
+            this.txtLI.TabIndex = 25;
+            this.txtLI.Text = "0,5";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 295);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(115, 20);
+            this.label16.TabIndex = 24;
+            this.label16.Text = "Limite Superior";
             // 
             // label6
             // 
@@ -745,104 +842,11 @@
             this.chMontecarlo.TabIndex = 1;
             this.chMontecarlo.Text = "chart2";
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 295);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(115, 20);
-            this.label16.TabIndex = 24;
-            this.label16.Text = "Limite Superior";
-            // 
-            // txtLI
-            // 
-            this.txtLI.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.txtLI.Location = new System.Drawing.Point(146, 254);
-            this.txtLI.Name = "txtLI";
-            this.txtLI.ReadOnly = true;
-            this.txtLI.Size = new System.Drawing.Size(127, 26);
-            this.txtLI.TabIndex = 25;
-            this.txtLI.Text = "0,5";
-            // 
-            // txtLS
-            // 
-            this.txtLS.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.txtLS.Location = new System.Drawing.Point(146, 295);
-            this.txtLS.Name = "txtLS";
-            this.txtLS.ReadOnly = true;
-            this.txtLS.Size = new System.Drawing.Size(127, 26);
-            this.txtLS.TabIndex = 26;
-            this.txtLS.Text = "3";
-            // 
-            // Column5
-            // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column5.HeaderText = "X";
-            this.Column5.MinimumWidth = 8;
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 85;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Y";
-            this.Column6.MinimumWidth = 8;
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 85;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "#";
-            this.Column7.MinimumWidth = 8;
-            this.Column7.Name = "Column7";
-            this.Column7.Width = 50;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "X";
-            this.Column8.MinimumWidth = 8;
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 60;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Y";
-            this.Column9.MinimumWidth = 8;
-            this.Column9.Name = "Column9";
-            this.Column9.Width = 60;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Iteración";
-            this.Column1.MinimumWidth = 8;
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 70;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "X(n)";
-            this.Column2.MinimumWidth = 8;
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 60;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "U(n)";
-            this.Column3.MinimumWidth = 8;
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 60;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Distribución Uniforme";
-            this.Column4.MinimumWidth = 8;
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 90;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1221, 617);
+            this.ClientSize = new System.Drawing.Size(1568, 923);
             this.Controls.Add(this.tabControlMontecarlo);
             this.Name = "Form1";
             this.Text = "Form1";
